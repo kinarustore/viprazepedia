@@ -37,44 +37,75 @@
       }
       @keyframes fade { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-      /* === REDEEM & TRANSFER SECTION === */
+      /* PERBAIKAN UTAMA: REDEEM & TRANSFER BOX */
       .feature-section { margin: 40px 0; }
       .redeem-box, .transfer-box {
-        background: rgba(0,0,0,0.3);
-        padding: 20px;
-        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        padding: 22px;
         margin-bottom: 25px;
+        border: 1px solid rgba(255,255,255,0.2);
       }
       .redeem-box h3, .transfer-box h3 {
-        color: #fff; margin-bottom: 15px; font-size: 20px;
+        color: #fff; margin-bottom: 16px; font-size: 20px; text-align: center;
       }
+
+      /* Input + Tombol Claim dalam satu baris & tidak keluar */
       .input-group {
-        display: flex; gap: 10px; align-items: center;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
       }
       .input-group input {
-        flex: 1; padding: 14px; border-radius: 12px;
-        border: none; background: rgba(255,255,255,0.15);
-        color: #fff; font-size: 16px;
+        flex: 1;
+        padding: 14px 16px;
+        border-radius: 16px;
+        border: none;
+        background: rgba(255,255,255,0.2);
+        color: #fff;
+        font-size: 15px;
       }
-      .input-group input::placeholder { color: rgba(255,255,255,0.6); }
-      .btn {
-        padding: 14px 24px; background: #00d4ff; color: white;
-        border: none; border-radius: 12px; cursor: pointer;
-        font-weight: 600; transition: 0.3s;
+      .input-group input::placeholder { color: rgba(255,255,255,0.7); }
+
+      .btn-claim {
+        padding: 14px 20px;
+        background: #00d4ff;
+        color: white;
+        border: none;
+        border-radius: 16px;
+        cursor: pointer;
+        font-weight: 600;
+        white-space: nowrap;
+        min-width: 80px;
+        transition: all 0.3s;
       }
-      .btn:hover { background: #00b0ff; transform: translateY(-2px); }
+      .btn-claim:hover { background: #00b8e6; transform: translateY(-2px); }
+
       .btn-transfer {
-        background: #4facfe; width: 100%; margin-top: 15px;
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        color: white;
+        border: none;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: 0.3s;
       }
-      .btn-transfer:hover { background: #3d8bfe; }
+      .btn-transfer:hover { background: linear-gradient(135deg, #3d8bfe, #00c3ff); }
 
-      /* Border aktif lebih kecil */
-      .border-active img {
-        width: 100%; max-width: 220px; height: auto;
-        border-radius: 0 !important; box-shadow: 0 0 30px rgba(0,212,255,0.7);
+      .transfer-box p {
+        color: #e0e0ff;
+        font-size: 14px;
+        margin-bottom: 14px;
+        line-height: 1.4;
       }
 
-      /* Sisanya sama seperti versi sebelumnya */
+      /* Sisanya tetap sama */
       .avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
                 border: 5px solid #00d4ff; box-shadow: 0 0 30px rgba(0,212,255,0.7);
                 cursor: pointer; transition: 0.3s; margin-bottom: 20px; }
@@ -89,6 +120,12 @@
       .stat { background: rgba(0,212,255,0.2); padding: 12px; border-radius: 15px;
               border: 1px solid #00d4ff; text-align: center; }
       .stat h3 { font-size: 20px; color: #00d4ff; }
+
+      .border-active img {
+        width: 100%; max-width: 220px; height: auto;
+        border-radius: 0 !important; box-shadow: 0 0 30px rgba(0,212,255,0.7);
+      }
+
       .border-list { display: flex; justify-content: center; gap: 18px; margin-top: 20px; flex-wrap: wrap; }
       .b-thumb { width: 76px; height: 96px; cursor: pointer; border-radius: 14px;
                  overflow: hidden; border: 4px solid transparent; transition: all 0.3s;
@@ -96,10 +133,12 @@
       .b-thumb:hover { transform: scale(1.02); }
       .b-thumb.active { border: 4px solid #00d4ff; transform: scale(1.08); box-shadow: 0 0 30px #00d4ff; }
       .b-thumb img { width: 100%; height: 100%; object-fit: contain; }
+
       .logout a { display: inline-block; padding: 12px 40px; background: #ff6b6b;
                   color: white; border-radius: 50px; text-decoration: none;
                   font-weight: 600; margin-top: 40px; box-shadow: 0 5px 15px rgba(255,107,107,0.4); transition: 0.3s; }
       .logout a:hover { background: #ff5252; transform: translateY(-3px); }
+
       .preloader { display: none; }
     </style>
   </head>
@@ -138,23 +177,20 @@
         <div class="stat"><h3>0</h3><small>MVP</small></div>
       </div>
 
-      <!-- ==== REDEEM CODE ==== -->
+      <!-- REDEEM & TRANSFER (SUDAH DIPERBAIKI) -->
       <div class="feature-section">
         <div class="redeem-box">
           <h3>Redeem Kode</h3>
           <div class="input-group">
             <input type="text" id="redeemInput" placeholder="Masukkan kode redeem" />
-            <button class="btn" onclick="claimRedeem()">Claim</button>
+            <button class="btn-claim" onclick="claimRedeem()">Claim</button>
           </div>
         </div>
 
-        <!-- ==== TRANSFER SLOT ==== -->
         <div class="transfer-box">
           <h3>Transfer Slot</h3>
-          <p style="color:#ccc; font-size:14px; margin-bottom:15px;">
-            Kirim slot ke pemain lain dengan cepat & aman.
-          </p>
-          <button class="btn btn-transfer" onclick="openTransferModal()">Mulai Transfer Slot</button>
+          <p>Kirim slot ke pemain lain dengan cepat & aman.</p>
+          <button class="btn-transfer" onclick="openTransferModal()">Mulai Transfer Slot</button>
         </div>
       </div>
 
@@ -187,6 +223,7 @@
       </div>
     </div>
 
+    <!-- SCRIPT SAMA SEPERTI SEBELUMNYA (tidak berubah) -->
     <script>
       const currentUser = localStorage.getItem("currentUser") || "razepedia";
       if (!localStorage.getItem("currentUser")) {
@@ -195,24 +232,14 @@
       }
       document.getElementById("username").textContent = currentUser;
 
-      // === INIT SLOT USER ===
-      if (!localStorage.getItem("slot_" + currentUser)) {
-        localStorage.setItem("slot_" + currentUser, "18");
-      }
+      if (!localStorage.getItem("slot_" + currentUser)) localStorage.setItem("slot_" + currentUser, "18");
       document.getElementById("slotCount").textContent = localStorage.getItem("slot_" + currentUser);
 
-      // === REDEEM CODE ===
       function claimRedeem() {
         const code = document.getElementById("redeemInput").value.trim();
         if (!code) return Swal.fire("Error","Masukkan kode dulu!","warning");
 
-        // Contoh kode redeem (bisa ditambah sesukamu)
-        const validCodes = {
-          "RAZE2025": 10,
-          "FREESLOT": 5,
-          "WELCOME": 15
-        };
-
+        const validCodes = { "RAZE2025": 10, "FREESLOT": 5, "WELCOME": 15 };
         if (validCodes[code]) {
           const bonus = validCodes[code];
           const current = parseInt(localStorage.getItem("slot_" + currentUser)) || 0;
@@ -221,18 +248,15 @@
           document.getElementById("redeemInput").value = "";
           Swal.fire("Sukses!",`Kamu mendapatkan +${bonus} slot!`,"success");
         } else {
-          Swal.fire("Gagal","Kode redeem tidak valid atau sudah digunakan","error");
+          Swal.fire("Gagal","Kode tidak valid atau sudah digunakan","error");
         }
       }
 
-      // === TRANSFER SLOT ===
       function openTransferModal() {
         Swal.fire({
           title: "Transfer Slot",
-          html: `
-            <input id="targetUser" class="swal2-input" placeholder="Username tujuan">
-            <input id="transferAmount" class="swal2-input" type="number" min="1" placeholder="Jumlah slot">
-          `,
+          html: `<input id="targetUser" class="swal2-input" placeholder="Username tujuan">
+                 <input id="transferAmount" class="swal2-input" type="number" min="1" placeholder="Jumlah slot">`,
           showCancelButton: true,
           confirmButtonText: "Transfer",
           preConfirm: () => {
@@ -240,36 +264,25 @@
             const amount = parseInt(document.getElementById("transferAmount").value);
 
             if (!target) return Swal.showValidationMessage("Username tujuan wajib diisi");
-            if (!amount || amount <= 0) return Swal.showValidationMessage("Masukkan jumlah yang valid");
-            if (amount > parseInt(localStorage.getItem("slot_" + currentUser))) {
-              return Swal.showValidationMessage("Slot kamu tidak cukup!");
-            }
+            if (!amount || amount <= 0) return Swal.showValidationMessage("Jumlah tidak valid");
+            if (amount > parseInt(localStorage.getItem("slot_" + currentUser))) return Swal.showValidationMessage("Slot tidak cukup!");
 
-            // Cek apakah user tujuan ada di "database" (localStorage)
             if (!localStorage.getItem("slot_" + target) && target !== currentUser) {
               return Swal.showValidationMessage("Username tidak ditemukan!");
             }
 
-            // Proses transfer
-            const senderSlot = parseInt(localStorage.getItem("slot_" + currentUser));
-            const receiverSlot = parseInt(localStorage.getItem("slot_" + target)) || 0;
+            const sender = parseInt(localStorage.getItem("slot_" + currentUser));
+            const receiver = parseInt(localStorage.getItem("slot_" + target)) || 0;
+            localStorage.setItem("slot_" + currentUser, sender - amount);
+            localStorage.setItem("slot_" + target, receiver + amount);
+            document.getElementById("slotCount").textContent = sender - amount;
 
-            localStorage.setItem("slot_" + currentUser, senderSlot - amount);
-            localStorage.setItem("slot_" + target, receiverSlot + amount);
-
-            // Update tampilan
-            document.getElementById("slotCount").textContent = senderSlot - amount;
-
-            Swal.fire(
-              "Transfer Berhasil!",
-              `Kamu berhasil transfer ${amount} slot ke @${target}`,
-              "success"
-            );
+            Swal.fire("Berhasil!",`Kamu berhasil transfer ${amount} slot ke @${target}`,"success");
           }
         });
       }
 
-      // === GANTI FOTO PROFIL (tetap sama) ===
+      // Foto profil, border, logout → tetap sama seperti sebelumnya
       document.getElementById("profilePic").onclick = () => document.getElementById("fileInput").click();
       document.getElementById("fileInput").onchange = e => {
         const f = e.target.files[0];
@@ -286,7 +299,6 @@
       const savedPic = localStorage.getItem("pic_"+currentUser);
       if (savedPic) document.getElementById("profilePic").src = savedPic;
 
-      // === GANTI BORDER (instan) ===
       const activeImg = document.getElementById("activeBorder");
       document.querySelectorAll(".b-thumb").forEach(thumb => {
         thumb.onclick = () => {
@@ -307,7 +319,6 @@
         });
       }
 
-      // === LOGOUT ===
       document.getElementById("logoutBtn").onclick = e => {
         e.preventDefault();
         localStorage.removeItem("currentUser");
