@@ -2,9 +2,10 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
+    <!-- META VIEWPORT BARU: bisa zoom in/out, responsif sempurna -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Razepedia</title>
     <meta name="referrer" content="no-referrer" />
+    <title>Dashboard - Razepedia</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       * {
@@ -13,17 +14,24 @@
         box-sizing: border-box;
         font-family: "Segoe UI", sans-serif;
       }
+
+      /* SCROLL SUPER HALUS */
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #8b5cf6, #d946ef);
-    padding: 20px 10px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    position: relative;
-}
+        min-height: 100vh;
+        background: linear-gradient(135deg, #8b5cf6, #d946ef);
+        padding: 20px 10px;
+        overflow-y: auto;        /* bisa scroll */
+        overflow-x: hidden;
+        display: flex;
+        align-items: flex-start; /* mulai dari atas */
+        justify-content: center;
+        position: relative;
+      }
+
       .bg-circles {
         position: absolute;
         top: 0;
@@ -72,20 +80,20 @@
       }
 
       .card {
-    position: relative;
-    z-index: 10;
-    width: 380px;
-    max-width: 95vw;               /* penting untuk HP */
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(20px);
-    border-radius: 30px;
-    padding: 40px 30px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    text-align: center;
-    animation: fade 1s ease-out;
-    margin: 20px auto;             /* beri jarak dari atas */
-}
+        position: relative;
+        z-index: 10;
+        width: 380px;
+        max-width: 95vw;           /* tidak keluar layar di HP */
+        background: rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        padding: 40px 30px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        text-align: center;
+        animation: fade 1s ease-out;
+        margin: 20px auto;         /* jarak dari atas, tengah otomatis */
+      }
       @keyframes fade {
         from {
           opacity: 0;
@@ -160,7 +168,7 @@
       }
 
       .border-active {
-        margin: 20px 0;
+        margin: 30px 0;
       }
       .border-active p {
         color: #00d4f1ff;
@@ -170,14 +178,11 @@
       }
       .border-active img {
         width: 100%;
-        max-width: 100px;
+        max-width: 240px;
         height: auto;
         border-radius: 18px;
         box-shadow: 0 0 30px rgba(0, 212, 255, 0.7);
         transition: opacity 0.4s ease;
-      }
-      .border-active img.loading {
-        opacity: 0.5;
       }
 
       .border-list {
@@ -230,14 +235,13 @@
         transform: translateY(-3px);
       }
 
-      /* PRELOADER – SEMUA BORDER SUDAH DI-LOAD DI MEMORY */
       .preloader {
         display: none;
       }
     </style>
   </head>
   <body>
-    <!-- PRELOAD SEMUA BORDER (TRIK UTAMA AGAR INSTAN!) -->
+    <!-- PRELOAD BORDER AGAR INSTAN -->
     <div class="preloader">
       <img src="https://i.imgur.com/fALj8Ot.png" alt="" />
       <img src="https://i.imgur.com/HX0Wg22.png" alt="" />
@@ -306,34 +310,19 @@
       </p>
       <div class="border-list">
         <div class="b-thumb active" data-url="https://i.imgur.com/fALj8Ot.png">
-          <img
-            src="https://i.imgur.com/fALj8Ot.png"
-            referrerpolicy="no-referrer"
-          />
+          <img src="https://i.imgur.com/fALj8Ot.png" referrerpolicy="no-referrer" />
         </div>
         <div class="b-thumb" data-url="https://i.imgur.com/HX0Wg22.png">
-          <img
-            src="https://i.imgur.com/HX0Wg22.png"
-            referrerpolicy="no-referrer"
-          />
+          <img src="https://i.imgur.com/HX0Wg22.png" referrerpolicy="no-referrer" />
         </div>
         <div class="b-thumb" data-url="https://i.imgur.com/bB5zrV3.gif">
-          <img
-            src="https://i.imgur.com/bB5zrV3.gif"
-            referrerpolicy="no-referrer"
-          />
+          <img src="https://i.imgur.com/bB5zrV3.gif" referrerpolicy="no-referrer" />
         </div>
         <div class="b-thumb" data-url="https://i.imgur.com/YyU1klC.gif">
-          <img
-            src="https://i.imgur.com/YyU1klC.gif"
-            referrerpolicy="no-referrer"
-          />
+          <img src="https://i.imgur.com/YyU1klC.gif" referrerpolicy="no-referrer" />
         </div>
         <div class="b-thumb" data-url="https://imgur.com/ml9fDX4.gif">
-          <img
-            src="https://imgur.com/ml9fDX4.gif"
-            referrerpolicy="no-referrer"
-          />
+          <img src="https://imgur.com/ml9fDX4.gif" referrerpolicy="no-referrer" />
         </div>
       </div>
 
@@ -371,31 +360,23 @@
       const savedPic = localStorage.getItem("pic_" + user);
       if (savedPic) document.getElementById("profilePic").src = savedPic;
 
-      // BORDER SWITCH – SEKARANG INSTAN!
+      // Ganti Border (instan karena sudah di-preload)
       const activeImg = document.getElementById("activeBorder");
-
       document.querySelectorAll(".b-thumb").forEach((thumb) => {
         thumb.onclick = () => {
-          // Hapus active dari semua
           document
             .querySelectorAll(".b-thumb")
             .forEach((x) => x.classList.remove("active"));
           thumb.classList.add("active");
-
           const newUrl = thumb.dataset.url;
-
-          // Langsung ganti src (sudah di-preload → instan!)
           activeImg.style.opacity = "0.6";
           activeImg.src = newUrl;
-
-          // Pastikan GIF tetap bergerak
           activeImg.onload = () => (activeImg.style.opacity = "1");
-
           localStorage.setItem("border_" + user, newUrl);
         };
       });
 
-      // Load border tersimpan saat buka halaman
+      // Load border tersimpan
       const savedBorder = localStorage.getItem("border_" + user);
       if (savedBorder) {
         activeImg.src = savedBorder;
