@@ -30,7 +30,7 @@
       .card {
         position: relative; z-index: 10; width: 380px; max-width: 95vw;
         background: rgba(255,255,255,0.18); backdrop-filter: blur(20px);
-        border-radius: 30px; padding: 40px 30px;
+        border-radius: 30px; padding: 40px 24px;
         box-shadow: 0 25px 50px rgba(0,0,0,0.4);
         border: 1px solid rgba(255,255,255,0.3);
         text-align: center; animation: fade 1s ease-out; margin: 20px auto;
@@ -38,50 +38,66 @@
       @keyframes fade { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
       /* PERBAIKAN UTAMA: REDEEM & TRANSFER BOX */
-      .feature-section { margin: 40px 0; }
+      .feature-section { margin: 35px 0; }
+
       .redeem-box, .transfer-box {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border-radius: 24px;
-        padding: 22px;
-        margin-bottom: 25px;
-        border: 1px solid rgba(255,255,255,0.2);
-      }
-      .redeem-box h3, .transfer-box h3 {
-        color: #fff; margin-bottom: 16px; font-size: 20px; text-align: center;
+        background: rgba(255, 255, 255, 0.22);
+        backdrop-filter: blur(12px);
+        border-radius: 26px;
+        padding: 22px 20px;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255,255,255,0.25);
+        overflow: hidden; /* PENTING! */
       }
 
-      /* Input + Tombol Claim dalam satu baris & tidak keluar */
+      .redeem-box h3, .transfer-box h3 {
+        color: #fff;
+        margin-bottom: 16px;
+        font-size: 19px;
+        font-weight: 600;
+      }
+
+      /* INPUT + TOMBOL CLAIM - TIDAK AKAN KELUAR LAGI! */
       .input-group {
         display: flex;
-        align-items: center;
+        flex-wrap: nowrap;
         gap: 10px;
-        width: 100%;
+        align-items: center;
       }
+
       .input-group input {
         flex: 1;
+        min-width: 0; /* penting agar tidak memaksa lebar */
         padding: 14px 16px;
         border-radius: 16px;
         border: none;
-        background: rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.25);
         color: #fff;
         font-size: 15px;
       }
-      .input-group input::placeholder { color: rgba(255,255,255,0.7); }
+      .input-group input::placeholder { color: rgba(255,255,255,0.8); }
 
       .btn-claim {
-        padding: 10px 20px;
+        padding: 14px 18px;
         background: #00d4ff;
         color: white;
         border: none;
         border-radius: 16px;
         cursor: pointer;
         font-weight: 600;
+        font-size: 15px;
         white-space: nowrap;
-        min-width: 80px;
+        min-width: 76px;
         transition: all 0.3s;
       }
-      .btn-claim:hover { background: #00b8e6; transform: translateY(-2px); }
+      .btn-claim:hover { background: #00b8e6; }
+
+      .transfer-box p {
+        color: #e8e8ff;
+        font-size: 14px;
+        margin-bottom: 16px;
+        line-height: 1.5;
+      }
 
       .btn-transfer {
         width: 100%;
@@ -89,48 +105,38 @@
         background: linear-gradient(135deg, #4facfe, #00f2fe);
         color: white;
         border: none;
-        border-radius: 16px;
+        border-radius: 18px;
         font-size: 16px;
         font-weight: 600;
         cursor: pointer;
-        margin-top: 10px;
         transition: 0.3s;
       }
-      .btn-transfer:hover { background: linear-gradient(135deg, #3d8bfe, #00c3ff); }
-
-      .transfer-box p {
-        color: #e0e0ff;
-        font-size: 14px;
-        margin-bottom: 14px;
-        line-height: 1.4;
-      }
+      .btn-transfer:hover { opacity: 0.9; transform: translateY(-1px); }
 
       /* Sisanya tetap sama */
       .avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
                 border: 5px solid #00d4ff; box-shadow: 0 0 30px rgba(0,212,255,0.7);
                 cursor: pointer; transition: 0.3s; margin-bottom: 20px; }
-      .avatar:hover { transform: scale(1.1); }
       h1 { font-size: 26px; color: #00d4ff; margin: 10px 0; }
       .rank { font-size: 18px; color: #ffa726; font-weight: 600; margin-bottom: 20px; }
       .info { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
-      .box { background: rgba(0,212,255,0.15); padding: 14px; border-radius: 18px;
+      .box { background: rgba(0,212,255,0.18); padding: 16px; border-radius: 20px;
              border: 1px solid rgba(0,212,255,0.4); }
-      .box strong { font-size: 22px; display: block; color: #00d4ff; }
+      .box strong { font-size: 24px; display: block; color: #fff; }
       .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 30px 0; }
-      .stat { background: rgba(0,212,255,0.2); padding: 12px; border-radius: 15px;
-              border: 1px solid #00d4ff; text-align: center; }
-      .stat h3 { font-size: 20px; color: #00d4ff; }
+      .stat { background: rgba(0,212,255,0.22); padding: 14px 8px; border-radius: 18px;
+              border: 1px solid rgba(0,212,255,0.5); }
+      .stat h3 { font-size: 20px; color: #fff; }
 
       .border-active img {
         width: 100%; max-width: 220px; height: auto;
         border-radius: 0 !important; box-shadow: 0 0 30px rgba(0,212,255,0.7);
       }
 
-      .border-list { display: flex; justify-content: center; gap: 18px; margin-top: 20px; flex-wrap: wrap; }
-      .b-thumb { width: 76px; height: 96px; cursor: pointer; border-radius: 14px;
+      .border-list { display: flex; justify-content: center; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
+      .b-thumb { width: 72px; height: 92px; cursor: pointer; border-radius: 14px;
                  overflow: hidden; border: 4px solid transparent; transition: all 0.3s;
                  transform: scale(0.94); background: #1e1e2e; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-      .b-thumb:hover { transform: scale(1.02); }
       .b-thumb.active { border: 4px solid #00d4ff; transform: scale(1.08); box-shadow: 0 0 30px #00d4ff; }
       .b-thumb img { width: 100%; height: 100%; object-fit: contain; }
 
@@ -138,8 +144,6 @@
                   color: white; border-radius: 50px; text-decoration: none;
                   font-weight: 600; margin-top: 40px; box-shadow: 0 5px 15px rgba(255,107,107,0.4); transition: 0.3s; }
       .logout a:hover { background: #ff5252; transform: translateY(-3px); }
-
-      .preloader { display: none; }
     </style>
   </head>
   <body>
@@ -177,7 +181,7 @@
         <div class="stat"><h3>0</h3><small>MVP</small></div>
       </div>
 
-      <!-- REDEEM & TRANSFER (SUDAH DIPERBAIKI) -->
+      <!-- REDEEM & TRANSFER - SUDAH AMAN 100% -->
       <div class="feature-section">
         <div class="redeem-box">
           <h3>Redeem Kode</h3>
@@ -223,7 +227,6 @@
       </div>
     </div>
 
-    <!-- SCRIPT SAMA SEPERTI SEBELUMNYA (tidak berubah) -->
     <script>
       const currentUser = localStorage.getItem("currentUser") || "razepedia";
       if (!localStorage.getItem("currentUser")) {
@@ -236,7 +239,7 @@
       document.getElementById("slotCount").textContent = localStorage.getItem("slot_" + currentUser);
 
       function claimRedeem() {
-        const code = document.getElementById("redeemInput").value.trim();
+        const code = document.getElementById("redeemInput").value.trim().toUpperCase();
         if (!code) return Swal.fire("Error","Masukkan kode dulu!","warning");
 
         const validCodes = { "RAZE2025": 10, "FREESLOT": 5, "WELCOME": 15 };
@@ -266,7 +269,6 @@
             if (!target) return Swal.showValidationMessage("Username tujuan wajib diisi");
             if (!amount || amount <= 0) return Swal.showValidationMessage("Jumlah tidak valid");
             if (amount > parseInt(localStorage.getItem("slot_" + currentUser))) return Swal.showValidationMessage("Slot tidak cukup!");
-
             if (!localStorage.getItem("slot_" + target) && target !== currentUser) {
               return Swal.showValidationMessage("Username tidak ditemukan!");
             }
@@ -282,7 +284,7 @@
         });
       }
 
-      // Foto profil, border, logout → tetap sama seperti sebelumnya
+      // Foto, border, logout tetap sama
       document.getElementById("profilePic").onclick = () => document.getElementById("fileInput").click();
       document.getElementById("fileInput").onchange = e => {
         const f = e.target.files[0];
