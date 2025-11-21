@@ -14,7 +14,6 @@
         font-family: "Segoe UI", sans-serif;
       }
 
-      /* Scroll halus global */
       html {
         scroll-behavior: smooth;
       }
@@ -31,19 +30,18 @@
         position: relative;
       }
 
-      /* === DESKTOP: FULL SCREEN CARD === */
+      /* DESKTOP: FULL SCREEN */
       @media (min-width: 1024px) {
         .card {
           width: 100vw !important;
           max-width: none !important;
           min-height: 100vh;
-          border-radius: 0 !important;        /* hilangkan border radius di desktop */
+          border-radius: 0 !important;
           padding: 60px 40px;
           margin: 0 !important;
         }
       }
 
-      /* === HP & TABLET: Tetap seperti sebelumnya (responsif) === */
       .card {
         position: relative;
         z-index: 10;
@@ -60,7 +58,12 @@
         margin: 20px auto;
       }
 
-      /* Background animasi lingkaran */
+      @keyframes fade {
+        from { opacity: 0; transform: scale(0.9); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+
+      /* Background lingkaran */
       .bg-circles {
         position: absolute;
         top: 0; left: 0; width: 100%; height: 100%;
@@ -80,15 +83,12 @@
         0%   { transform: translateY(0) rotate(0deg); opacity: 0.3; }
         100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
       }
-      @keyframes fade {
-        from { opacity: 0; transform: scale(0.9); }
-        to   { opacity: 1; transform: scale(1); }
-      }
 
-      /* Avatar & elemen lainnya tetap sama */
-      .avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
-                border: 5px solid #00d4ff; box-shadow: 0 0 30px rgba(0,212,255,0.7);
-                cursor: pointer; transition: 0.3s; margin-bottom: 20px; }
+      .avatar {
+        width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
+        border: 5px solid #00d4ff; box-shadow: 0 0 30px rgba(0,212,255,0.7);
+        cursor: pointer; transition: 0.3s; margin-bottom: 20px;
+      }
       .avatar:hover { transform: scale(1.1); }
 
       h1 { font-size: 26px; color: #00d4ff; margin: 10px 0; }
@@ -104,28 +104,32 @@
               border: 1px solid #00d4ff; text-align: center; }
       .stat h3 { font-size: 20px; color: #00d4ff; }
 
-      /* BORDER AKTIF: SUDAH TIDAK CURVE (tajam) */
+      /* BORDER AKTIF: UKURAN DIPERKECIL & TIDAK CURVE */
       .border-active {
-        margin: 30px 0;
+        margin: 35px 0;
       }
       .border-active p {
         color: #00d4ff;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         font-weight: 600;
         font-size: 17px;
       }
       .border-active img {
         width: 100%;
-        max-width: 280px;          /* sedikit lebih besar biar kelihatan keren */
+        max-width: 220px;           /* INI YANG DIKECILKAN */
         height: auto;
-        border-radius: 0 !important;   /* TIDAK CURVE */
+        border-radius: 0 !important;   /* tetap tajam */
         box-shadow: 0 0 30px rgba(0,212,255,0.7);
         transition: opacity 0.4s ease;
       }
 
-      /* Thumbnail border tetap curve */
-      .border-list { display: flex; justify-content: center; gap: 18px;
-                     margin-top: 20px; flex-wrap: wrap; }
+      .border-list {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
       .b-thumb {
         width: 76px; height: 96px; cursor: pointer; border-radius: 14px;
         overflow: hidden; border: 4px solid transparent; transition: all 0.3s;
@@ -141,19 +145,27 @@
       .b-thumb img { width: 100%; height: 100%; object-fit: contain; }
 
       .logout a {
-        display: inline-block; padding: 12px 40px; background: #ff6b6b;
-        color: white; border-radius: 50px; text-decoration: none;
-        font-weight: 600; margin-top: 40px;
-        box-shadow: 0 5px 15px rgba(255,107,107,0.4); transition: 0.3s;
+        display: inline-block;
+        padding: 12px 40px;
+        background: #ff6b6b;
+        color: white;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 40px;
+        box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        transition: 0.3s;
       }
-      .logout a:hover { background: #ff5252; transform: translateY(-3px); }
+      .logout a:hover {
+        background: #ff5252;
+        transform: translateY(-3px);
+      }
 
       .preloader { display: none; }
     </style>
   </head>
   <body>
 
-    <!-- PRELOAD BORDER -->
     <div class="preloader">
       <img src="https://i.imgur.com/fALj8Ot.png" alt="" />
       <img src="https://i.imgur.com/HX0Wg22.png" alt="" />
@@ -224,7 +236,7 @@
       }
       document.getElementById("username").textContent = user;
 
-      // Ganti foto profil
+      // Foto profil
       document.getElementById("profilePic").onclick = () => document.getElementById("fileInput").click();
       document.getElementById("fileInput").onchange = e => {
         const f = e.target.files[0];
@@ -241,7 +253,7 @@
       const savedPic = localStorage.getItem("pic_"+user);
       if (savedPic) document.getElementById("profilePic").src = savedPic;
 
-      // Ganti border (instan)
+      // Ganti border
       const activeImg = document.getElementById("activeBorder");
       document.querySelectorAll(".b-thumb").forEach(thumb => {
         thumb.onclick = () => {
