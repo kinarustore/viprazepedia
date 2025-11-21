@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Razepedia</title>
+    <meta name="referrer" content="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #8b5cf6, #d946ef);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+      .bg-circles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        animation: float 18s infinite linear;
+      }
+      .circle:nth-child(1) {
+        width: 350px;
+        height: 350px;
+        left: -15%;
+        top: 10%;
+        animation-duration: 25s;
+      }
+      .circle:nth-child(2) {
+        width: 280px;
+        height: 280px;
+        right: -10%;
+        bottom: 15%;
+        animation-duration: 30s;
+      }
+      .circle:nth-child(3) {
+        width: 420px;
+        height: 420px;
+        left: 20%;
+        bottom: -25%;
+        animation-duration: 35s;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.3;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .card {
+        position: relative;
+        z-index: 10;
+        width: 380px;
+        background: rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        padding: 40px 30px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        text-align: center;
+        animation: fade 1s ease-out;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .avatar {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #00d4ff;
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.7);
+        cursor: pointer;
+        transition: 0.3s;
+        margin-bottom: 20px;
+      }
+      .avatar:hover {
+        transform: scale(1.1);
+      }
+
+      h1 {
+        font-size: 26px;
+        color: #00d4ff;
+        margin: 10px 0;
+      }
+      .rank {
+        font-size: 18px;
+        color: #ffa726;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      .info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin: 25px 0;
+      }
+      .box {
+        background: rgba(0, 212, 255, 0.15);
+        padding: 14px;
+        border-radius: 18px;
+        border: 1px solid rgba(0, 212, 255, 0.4);
+      }
+      .box strong {
+        font-size: 22px;
+        display: block;
+        color: #00d4ff;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin: 30px 0;
+      }
+      .stat {
+        background: rgba(0, 212, 255, 0.2);
+        padding: 12px;
+        border-radius: 15px;
+        border: 1px solid #00d4ff;
+      }
+      .stat h3 {
+        font-size: 20px;
+        color: #00d4ff;
+      }
+
+      .border-active {
+        margin: 30px 0;
+      }
+      .border-active p {
+        color: #00d4f1ff;
+        margin-bottom: 12px;
+        font-weight: 600;
+        font-size: 17px;
+      }
+      .border-active img {
+        width: 100%;
+        max-width: 240px;
+        height: auto;
+        border-radius: 18px;
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.7);
+        transition: opacity 0.4s ease;
+      }
+      .border-active img.loading {
+        opacity: 0.5;
+      }
+
+      .border-list {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .b-thumb {
+        width: 76px;
+        height: 96px;
+        cursor: pointer;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 4px solid transparent;
+        transition: all 0.3s;
+        transform: scale(0.94);
+        background: #1e1e2e;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      }
+      .b-thumb:hover {
+        transform: scale(1.02);
+      }
+      .b-thumb.active {
+        border: 4px solid #00d4ff;
+        transform: scale(1.08);
+        box-shadow: 0 0 30px #00d4ff;
+      }
+      .b-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .logout a {
+        display: inline-block;
+        padding: 12px 40px;
+        background: #ff6b6b;
+        color: white;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 40px;
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        transition: 0.3s;
+      }
+      .logout a:hover {
+        background: #ff5252;
+        transform: translateY(-3px);
+      }
+
+      /* PRELOADER – SEMUA BORDER SUDAH DI-LOAD DI MEMORY */
+      .preloader {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- PRELOAD SEMUA BORDER (TRIK UTAMA AGAR INSTAN!) -->
+    <div class="preloader">
+      <img src="https://i.imgur.com/fALj8Ot.png" alt="" />
+      <img src="https://i.imgur.com/HX0Wg22.png" alt="" />
+      <img src="https://i.imgur.com/bB5zrV3.gif" alt="" />
+      <img src="https://i.imgur.com/YyU1klC.gif" alt="" />
+      <img src="https://imgur.com/ml9fDX4.gif" alt="" />
+    </div>
+
+    <div class="bg-circles">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+
+    <div class="card">
+      <img
+        src="https://via.placeholder.com/110/1e1e2e/00D4FF?text=A"
+        class="avatar"
+        id="profilePic"
+      />
+      <input
+        type="file"
+        id="fileInput"
+        accept="image/*"
+        style="display: none"
+      />
+
+      <h1>Halo, <span id="username">razepedia</span>!</h1>
+      <div class="rank">Bronze III</div>
+
+      <div class="info">
+        <div class="box"><small>Slot Tersedia</small><strong>18</strong></div>
+        <div class="box"><small>Total Point</small><strong>1350</strong></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <h3>9</h3>
+          <small>Main</small>
+        </div>
+        <div class="stat">
+          <h3>4</h3>
+          <small>Menang</small>
+        </div>
+        <div class="stat">
+          <h3>44%</h3>
+          <small>Winrate</small>
+        </div>
+        <div class="stat">
+          <h3>0</h3>
+          <small>MVP</small>
+        </div>
+      </div>
+
+      <div class="border-active">
+        <p>Border Aktif</p>
+        <img
+          src="https://i.imgur.com/fALj8Ot.png"
+          alt="Border"
+          id="activeBorder"
+        />
+      </div>
+
+      <p style="color: #d4f1ff; margin: 20px 0 10px; font-weight: 600">
+        Pilih Border
+      </p>
+      <div class="border-list">
+        <div class="b-thumb active" data-url="https://i.imgur.com/fALj8Ot.png">
+          <img
+            src="https://i.imgur.com/fALj8Ot.png"
+            referrerpolicy="no-referrer"
+          />
+        </div>
+        <div class="b-thumb" data-url="https://i.imgur.com/HX0Wg22.png">
+          <img
+            src="https://i.imgur.com/HX0Wg22.png"
+            referrerpolicy="no-referrer"
+          />
+        </div>
+        <div class="b-thumb" data-url="https://i.imgur.com/bB5zrV3.gif">
+          <img
+            src="https://i.imgur.com/bB5zrV3.gif"
+            referrerpolicy="no-referrer"
+          />
+        </div>
+        <div class="b-thumb" data-url="https://i.imgur.com/YyU1klC.gif">
+          <img
+            src="https://i.imgur.com/YyU1klC.gif"
+            referrerpolicy="no-referrer"
+          />
+        </div>
+        <div class="b-thumb" data-url="https://imgur.com/ml9fDX4.gif">
+          <img
+            src="https://imgur.com/ml9fDX4.gif"
+            referrerpolicy="no-referrer"
+          />
+        </div>
+      </div>
+
+      <div class="logout">
+        <a href="#" id="logoutBtn">Keluar Akun</a>
+      </div>
+    </div>
+
+    <script>
+      const user = localStorage.getItem("currentUser") || "razepedia";
+      if (!localStorage.getItem("currentUser")) {
+        Swal.fire(
+          "Login Dulu!",
+          "Silakan login terlebih dahulu",
+          "warning"
+        ).then(() => (location.href = "login.html"));
+      }
+      document.getElementById("username").textContent = user;
+
+      // Foto profil
+      document.getElementById("profilePic").onclick = () =>
+        document.getElementById("fileInput").click();
+      document.getElementById("fileInput").onchange = (e) => {
+        const f = e.target.files[0];
+        if (f && f.size <= 2 * 1024 * 1024) {
+          const r = new FileReader();
+          r.onload = (ev) => {
+            document.getElementById("profilePic").src = ev.target.result;
+            localStorage.setItem("pic_" + user, ev.target.result);
+            Swal.fire("Sukses!", "Foto profil diperbarui", "success");
+          };
+          r.readAsDataURL(f);
+        } else Swal.fire("Error", "Max 2MB!", "error");
+      };
+      const savedPic = localStorage.getItem("pic_" + user);
+      if (savedPic) document.getElementById("profilePic").src = savedPic;
+
+      // BORDER SWITCH – SEKARANG INSTAN!
+      const activeImg = document.getElementById("activeBorder");
+
+      document.querySelectorAll(".b-thumb").forEach((thumb) => {
+        thumb.onclick = () => {
+          // Hapus active dari semua
+          document
+            .querySelectorAll(".b-thumb")
+            .forEach((x) => x.classList.remove("active"));
+          thumb.classList.add("active");
+
+          const newUrl = thumb.dataset.url;
+
+          // Langsung ganti src (sudah di-preload → instan!)
+          activeImg.style.opacity = "0.6";
+          activeImg.src = newUrl;
+
+          // Pastikan GIF tetap bergerak
+          activeImg.onload = () => (activeImg.style.opacity = "1");
+
+          localStorage.setItem("border_" + user, newUrl);
+        };
+      });
+
+      // Load border tersimpan saat buka halaman
+      const savedBorder = localStorage.getItem("border_" + user);
+      if (savedBorder) {
+        activeImg.src = savedBorder;
+        document.querySelectorAll(".b-thumb").forEach((t) => {
+          if (t.dataset.url === savedBorder) t.classList.add("active");
+        });
+      }
+
+      // Logout
+      document.getElementById("logoutBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("currentUser");
+        Swal.fire({
+          icon: "success",
+          title: "Sampai jumpa!",
+          timer: 1500,
+          showConfirmButton: false,
+        }).then(() => (location.href = "login.html"));
+      });
+    </script>
+  </body>
+</html>
