@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Razepedia</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+      .bg-circles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        animation: float 15s infinite linear;
+      }
+      .circle:nth-child(1) { width: 320px; height: 320px; left: -10%; top: 15%; animation-duration: 22s; }
+      .circle:nth-child(2) { width: 220px; height: 220px; right: -8%; bottom: 5%; animation-duration: 28s; }
+      .circle:nth-child(3) { width: 420px; height: 420px; left: 15%; bottom: -20%; animation-duration: 32s; }
+
+      @keyframes float {
+        0% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+        100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+      }
+
+      .container {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        border-radius: 25px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        animation: fadeIn 1.2s ease-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      h1 {
+        font-size: 48px;
+        color: white;
+        margin-bottom: 20px;
+        font-weight: 700;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      }
+      p {
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 40px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 16px 50px;
+        background: #00d4ff;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        transition: all 0.3s;
+      }
+      .btn:hover {
+        background: #00b0d4;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 212, 255, 0.6);
+      }
+
+      .small-link {
+        margin-top: 30px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .small-link a {
+        color: #a0eaff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .small-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="bg-circles">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+
+    <div class="container">
+      <h1>Razepedia</h1>
+      <p>Selamat datang di dashboard gaming kamu</p>
+
+      <a href="login.html" class="btn">Masuk ke Akun</a>
+
+      <div class="small-link">
+        Belum punya akun? <a href="daftar.html">Daftar di sini</a>
+      </div>
+    </div>
+
+  </body>
+</html>
