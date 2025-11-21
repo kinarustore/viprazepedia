@@ -7,16 +7,8 @@
     <title>Dashboard - Razepedia</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", sans-serif;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+      html { scroll-behavior: smooth; }
 
       body {
         min-height: 100vh;
@@ -30,137 +22,84 @@
         position: relative;
       }
 
-      /* DESKTOP: FULL SCREEN */
       @media (min-width: 1024px) {
-        .card {
-          width: 100vw !important;
-          max-width: none !important;
-          min-height: 100vh;
-          border-radius: 0 !important;
-          padding: 60px 40px;
-          margin: 0 !important;
-        }
+        .card { width: 100vw !important; max-width: none !important; min-height: 100vh;
+                border-radius: 0 !important; padding: 60px 40px; margin: 0 !important; }
       }
 
       .card {
-        position: relative;
-        z-index: 10;
-        width: 380px;
-        max-width: 95vw;
-        background: rgba(255, 255, 255, 0.18);
-        backdrop-filter: blur(20px);
-        border-radius: 30px;
-        padding: 40px 30px;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        text-align: center;
-        animation: fade 1s ease-out;
-        margin: 20px auto;
+        position: relative; z-index: 10; width: 380px; max-width: 95vw;
+        background: rgba(255,255,255,0.18); backdrop-filter: blur(20px);
+        border-radius: 30px; padding: 40px 30px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.3);
+        text-align: center; animation: fade 1s ease-out; margin: 20px auto;
+      }
+      @keyframes fade { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+      /* === REDEEM & TRANSFER SECTION === */
+      .feature-section { margin: 40px 0; }
+      .redeem-box, .transfer-box {
+        background: rgba(0,0,0,0.3);
+        padding: 20px;
+        border-radius: 20px;
+        margin-bottom: 25px;
+      }
+      .redeem-box h3, .transfer-box h3 {
+        color: #fff; margin-bottom: 15px; font-size: 20px;
+      }
+      .input-group {
+        display: flex; gap: 10px; align-items: center;
+      }
+      .input-group input {
+        flex: 1; padding: 14px; border-radius: 12px;
+        border: none; background: rgba(255,255,255,0.15);
+        color: #fff; font-size: 16px;
+      }
+      .input-group input::placeholder { color: rgba(255,255,255,0.6); }
+      .btn {
+        padding: 14px 24px; background: #00d4ff; color: white;
+        border: none; border-radius: 12px; cursor: pointer;
+        font-weight: 600; transition: 0.3s;
+      }
+      .btn:hover { background: #00b0ff; transform: translateY(-2px); }
+      .btn-transfer {
+        background: #4facfe; width: 100%; margin-top: 15px;
+      }
+      .btn-transfer:hover { background: #3d8bfe; }
+
+      /* Border aktif lebih kecil */
+      .border-active img {
+        width: 100%; max-width: 220px; height: auto;
+        border-radius: 0 !important; box-shadow: 0 0 30px rgba(0,212,255,0.7);
       }
 
-      @keyframes fade {
-        from { opacity: 0; transform: scale(0.9); }
-        to   { opacity: 1; transform: scale(1); }
-      }
-
-      /* Background lingkaran */
-      .bg-circles {
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        overflow: hidden;
-        z-index: 1;
-      }
-      .circle {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.08);
-        animation: float 18s infinite linear;
-      }
-      .circle:nth-child(1) { width: 350px; height: 350px; left: -15%; top: 10%; animation-duration: 25s; }
-      .circle:nth-child(2) { width: 280px; height: 280px; right: -10%; bottom: 15%; animation-duration: 30s; }
-      .circle:nth-child(3) { width: 420px; height: 420px; left: 20%; bottom: -25%; animation-duration: 35s; }
-      @keyframes float {
-        0%   { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-        100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-      }
-
-      .avatar {
-        width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
-        border: 5px solid #00d4ff; box-shadow: 0 0 30px rgba(0,212,255,0.7);
-        cursor: pointer; transition: 0.3s; margin-bottom: 20px;
-      }
+      /* Sisanya sama seperti versi sebelumnya */
+      .avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
+                border: 5px solid #00d4ff; box-shadow: 0 0 30px rgba(0,212,255,0.7);
+                cursor: pointer; transition: 0.3s; margin-bottom: 20px; }
       .avatar:hover { transform: scale(1.1); }
-
       h1 { font-size: 26px; color: #00d4ff; margin: 10px 0; }
       .rank { font-size: 18px; color: #ffa726; font-weight: 600; margin-bottom: 20px; }
-
       .info { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
       .box { background: rgba(0,212,255,0.15); padding: 14px; border-radius: 18px;
              border: 1px solid rgba(0,212,255,0.4); }
       .box strong { font-size: 22px; display: block; color: #00d4ff; }
-
       .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 30px 0; }
       .stat { background: rgba(0,212,255,0.2); padding: 12px; border-radius: 15px;
               border: 1px solid #00d4ff; text-align: center; }
       .stat h3 { font-size: 20px; color: #00d4ff; }
-
-      /* BORDER AKTIF: UKURAN DIPERKECIL & TIDAK CURVE */
-      .border-active {
-        margin: 35px 0;
-      }
-      .border-active p {
-        color: #00d4ff;
-        margin-bottom: 17px;
-        font-weight: 600;
-        font-size: 17px;
-      }
-      .border-active img {
-        width: 100%;
-        max-width: 100px;           /* INI YANG DIKECILKAN */
-        height: auto;
-        border-radius: 0 !important;   /* tetap tajam */
-        box-shadow: 0 0 30px rgba(0,212,255,0.7);
-        transition: opacity 0.4s ease;
-      }
-
-      .border-list {
-        display: flex;
-        justify-content: center;
-        gap: 18px;
-        margin-top: 20px;
-        flex-wrap: wrap;
-      }
-      .b-thumb {
-        width: 76px; height: 96px; cursor: pointer; border-radius: 14px;
-        overflow: hidden; border: 4px solid transparent; transition: all 0.3s;
-        transform: scale(0.94); background: #1e1e2e;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      }
+      .border-list { display: flex; justify-content: center; gap: 18px; margin-top: 20px; flex-wrap: wrap; }
+      .b-thumb { width: 76px; height: 96px; cursor: pointer; border-radius: 14px;
+                 overflow: hidden; border: 4px solid transparent; transition: all 0.3s;
+                 transform: scale(0.94); background: #1e1e2e; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
       .b-thumb:hover { transform: scale(1.02); }
-      .b-thumb.active {
-        border: 4px solid #00d4ff;
-        transform: scale(1.08);
-        box-shadow: 0 0 30px #00d4ff;
-      }
+      .b-thumb.active { border: 4px solid #00d4ff; transform: scale(1.08); box-shadow: 0 0 30px #00d4ff; }
       .b-thumb img { width: 100%; height: 100%; object-fit: contain; }
-
-      .logout a {
-        display: inline-block;
-        padding: 12px 40px;
-        background: #ff6b6b;
-        color: white;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        margin-top: 40px;
-        box-shadow: 0 5px 15px rgba(255,107,107,0.4);
-        transition: 0.3s;
-      }
-      .logout a:hover {
-        background: #ff5252;
-        transform: translateY(-3px);
-      }
-
+      .logout a { display: inline-block; padding: 12px 40px; background: #ff6b6b;
+                  color: white; border-radius: 50px; text-decoration: none;
+                  font-weight: 600; margin-top: 40px; box-shadow: 0 5px 15px rgba(255,107,107,0.4); transition: 0.3s; }
+      .logout a:hover { background: #ff5252; transform: translateY(-3px); }
       .preloader { display: none; }
     </style>
   </head>
@@ -188,7 +127,7 @@
       <div class="rank">Bronze III</div>
 
       <div class="info">
-        <div class="box"><small>Slot Tersedia</small><strong>18</strong></div>
+        <div class="box"><small>Slot Tersedia</small><strong id="slotCount">18</strong></div>
         <div class="box"><small>Total Point</small><strong>1350</strong></div>
       </div>
 
@@ -197,6 +136,26 @@
         <div class="stat"><h3>4</h3><small>Menang</small></div>
         <div class="stat"><h3>44%</h3><small>Winrate</small></div>
         <div class="stat"><h3>0</h3><small>MVP</small></div>
+      </div>
+
+      <!-- ==== REDEEM CODE ==== -->
+      <div class="feature-section">
+        <div class="redeem-box">
+          <h3>Redeem Kode</h3>
+          <div class="input-group">
+            <input type="text" id="redeemInput" placeholder="Masukkan kode redeem" />
+            <button class="btn" onclick="claimRedeem()">Claim</button>
+          </div>
+        </div>
+
+        <!-- ==== TRANSFER SLOT ==== -->
+        <div class="transfer-box">
+          <h3>Transfer Slot</h3>
+          <p style="color:#ccc; font-size:14px; margin-bottom:15px;">
+            Kirim slot ke pemain lain dengan cepat & aman.
+          </p>
+          <button class="btn btn-transfer" onclick="openTransferModal()">Mulai Transfer Slot</button>
+        </div>
       </div>
 
       <div class="border-active">
@@ -229,14 +188,88 @@
     </div>
 
     <script>
-      const user = localStorage.getItem("currentUser") || "razepedia";
+      const currentUser = localStorage.getItem("currentUser") || "razepedia";
       if (!localStorage.getItem("currentUser")) {
         Swal.fire("Login Dulu!","Silakan login terlebih dahulu","warning")
           .then(() => location.href = "login.html");
       }
-      document.getElementById("username").textContent = user;
+      document.getElementById("username").textContent = currentUser;
 
-      // Foto profil
+      // === INIT SLOT USER ===
+      if (!localStorage.getItem("slot_" + currentUser)) {
+        localStorage.setItem("slot_" + currentUser, "18");
+      }
+      document.getElementById("slotCount").textContent = localStorage.getItem("slot_" + currentUser);
+
+      // === REDEEM CODE ===
+      function claimRedeem() {
+        const code = document.getElementById("redeemInput").value.trim();
+        if (!code) return Swal.fire("Error","Masukkan kode dulu!","warning");
+
+        // Contoh kode redeem (bisa ditambah sesukamu)
+        const validCodes = {
+          "RAZE2025": 10,
+          "FREESLOT": 5,
+          "WELCOME": 15
+        };
+
+        if (validCodes[code]) {
+          const bonus = validCodes[code];
+          const current = parseInt(localStorage.getItem("slot_" + currentUser)) || 0;
+          localStorage.setItem("slot_" + currentUser, current + bonus);
+          document.getElementById("slotCount").textContent = current + bonus;
+          document.getElementById("redeemInput").value = "";
+          Swal.fire("Sukses!",`Kamu mendapatkan +${bonus} slot!`,"success");
+        } else {
+          Swal.fire("Gagal","Kode redeem tidak valid atau sudah digunakan","error");
+        }
+      }
+
+      // === TRANSFER SLOT ===
+      function openTransferModal() {
+        Swal.fire({
+          title: "Transfer Slot",
+          html: `
+            <input id="targetUser" class="swal2-input" placeholder="Username tujuan">
+            <input id="transferAmount" class="swal2-input" type="number" min="1" placeholder="Jumlah slot">
+          `,
+          showCancelButton: true,
+          confirmButtonText: "Transfer",
+          preConfirm: () => {
+            const target = document.getElementById("targetUser").value.trim();
+            const amount = parseInt(document.getElementById("transferAmount").value);
+
+            if (!target) return Swal.showValidationMessage("Username tujuan wajib diisi");
+            if (!amount || amount <= 0) return Swal.showValidationMessage("Masukkan jumlah yang valid");
+            if (amount > parseInt(localStorage.getItem("slot_" + currentUser))) {
+              return Swal.showValidationMessage("Slot kamu tidak cukup!");
+            }
+
+            // Cek apakah user tujuan ada di "database" (localStorage)
+            if (!localStorage.getItem("slot_" + target) && target !== currentUser) {
+              return Swal.showValidationMessage("Username tidak ditemukan!");
+            }
+
+            // Proses transfer
+            const senderSlot = parseInt(localStorage.getItem("slot_" + currentUser));
+            const receiverSlot = parseInt(localStorage.getItem("slot_" + target)) || 0;
+
+            localStorage.setItem("slot_" + currentUser, senderSlot - amount);
+            localStorage.setItem("slot_" + target, receiverSlot + amount);
+
+            // Update tampilan
+            document.getElementById("slotCount").textContent = senderSlot - amount;
+
+            Swal.fire(
+              "Transfer Berhasil!",
+              `Kamu berhasil transfer ${amount} slot ke @${target}`,
+              "success"
+            );
+          }
+        });
+      }
+
+      // === GANTI FOTO PROFIL (tetap sama) ===
       document.getElementById("profilePic").onclick = () => document.getElementById("fileInput").click();
       document.getElementById("fileInput").onchange = e => {
         const f = e.target.files[0];
@@ -244,16 +277,16 @@
           const r = new FileReader();
           r.onload = ev => {
             document.getElementById("profilePic").src = ev.target.result;
-            localStorage.setItem("pic_"+user, ev.target.result);
+            localStorage.setItem("pic_"+currentUser, ev.target.result);
             Swal.fire("Sukses!","Foto profil diperbarui","success");
           };
           r.readAsDataURL(f);
         } else Swal.fire("Error","Max 2MB!","error");
       };
-      const savedPic = localStorage.getItem("pic_"+user);
+      const savedPic = localStorage.getItem("pic_"+currentUser);
       if (savedPic) document.getElementById("profilePic").src = savedPic;
 
-      // Ganti border
+      // === GANTI BORDER (instan) ===
       const activeImg = document.getElementById("activeBorder");
       document.querySelectorAll(".b-thumb").forEach(thumb => {
         thumb.onclick = () => {
@@ -263,12 +296,10 @@
           activeImg.style.opacity = "0.6";
           activeImg.src = newUrl;
           activeImg.onload = () => activeImg.style.opacity = "1";
-          localStorage.setItem("border_"+user, newUrl);
+          localStorage.setItem("border_"+currentUser, newUrl);
         };
       });
-
-      // Load border tersimpan
-      const savedBorder = localStorage.getItem("border_"+user);
+      const savedBorder = localStorage.getItem("border_"+currentUser);
       if (savedBorder) {
         activeImg.src = savedBorder;
         document.querySelectorAll(".b-thumb").forEach(t => {
@@ -276,7 +307,7 @@
         });
       }
 
-      // Logout
+      // === LOGOUT ===
       document.getElementById("logoutBtn").onclick = e => {
         e.preventDefault();
         localStorage.removeItem("currentUser");
